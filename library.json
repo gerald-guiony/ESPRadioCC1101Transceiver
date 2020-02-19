@@ -9,7 +9,7 @@
   },
   "repository": {
         "type": "git",
-        "url": "https://github.com/gguiony/RadioCC1101Transceiver.git"
+        "url": "https://github.com/gerald-guiony/ESPRadioCC1101Transceiver.git"
   },
   "version": "3.2",
   "frameworks": "arduino",
