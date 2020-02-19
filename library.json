@@ -1,0 +1,24 @@
+{
+  "name": "ESPRadioCC1101Transceiver",
+  "keywords": "cc1101, radio, rf, transceiver",
+  "description": "Esp8266 library for transmit and receive RF signals with the CC1101 module",
+  "authors":
+  {
+    "name": "Gérald GUIONY",
+    "url": "http://wpsm.free.fr"
+  },
+  "repository": {
+        "type": "git",
+        "url": "https://github.com/gguiony/RadioCC1101Transceiver.git"
+  },
+  "version": "3.2",
+  "frameworks": "arduino",
+  "platforms": "*",
+  "dependencies": [
+    {
+      "name": "ESPCoreExtension",
+      "version": "3.2",
+      "platforms": "espressif8266"
+    }
+  ]
+}
