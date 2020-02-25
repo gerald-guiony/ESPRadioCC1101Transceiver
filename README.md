@@ -2,7 +2,7 @@
 
 ESPRadioCC1101Transceiver is a C++ library for ESP8266 WiFi chip to transmit and receive RF signals with the CC1101 module.
 
-This library is an adaptation of various CC1101 Arduino libraries especially this one: [X2D Heaters drivers for Arduino and CC1101 RF chip](https://github.com/SixK/CC1101-X2D-Heaters)
+This library is a compilation of various CC1101 Arduino libraries especially this one: [X2D Heaters drivers for Arduino and CC1101 RF chip](https://github.com/SixK/CC1101-X2D-Heaters)
 
 ## Getting started
 
