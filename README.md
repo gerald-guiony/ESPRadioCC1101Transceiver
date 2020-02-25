@@ -23,3 +23,7 @@ To use ESPRadioCC1101Transceiver, you need:
 ## Dependencies
 
 To use this library you might need to have the latest version of [ESPCoreExtension library](https://github.com/gerald-guiony/ESPCoreExtension)
+
+## CC1101 Wiring
+
+![CC1101 Wiring](https://github.com/gerald-guiony/ESPRadioCC1101Transceiver/blob/master/docs/CC1101%20ESP8266.png)
