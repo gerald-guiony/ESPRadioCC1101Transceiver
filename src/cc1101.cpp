@@ -13,7 +13,7 @@
 //========================================================================================================================
 // default constructor
 //========================================================================================================================
-CC1101::CC1101 (uint8_t irqPin) :
+CC1101::CC1101 (uint8_t irqPin /*= -1*/) :
 	_irqPin (irqPin)
 {
 	// Initialize the SPI pins
@@ -24,7 +24,9 @@ CC1101::CC1101 (uint8_t irqPin) :
 
 	SPI.begin ();							// Initialize SPI interface
 
-	pinMode (_irqPin, INPUT);				// Config GDO2 as input
+	if (_irqPin != -1) {
+		pinMode (_irqPin, INPUT);			// Config GDO2 as input
+	}
 
 	hardReset ();							// Reset CC1101	
 }
@@ -713,14 +715,14 @@ void CC1101::printState (uint8_t status)
 	{
 		switch (_currentState)
 		{
-			case (CC_STATE_IDLE):			Logln (F("STATE_IDLE				"));	break;
+			case (CC_STATE_IDLE):			Logln (F("STATE_IDLE			"));	break;
 			case (CC_STATE_RX):				Logln (F("STATE_RX				"));	break;
 			case (CC_STATE_TX):				Logln (F("STATE_TX				"));	break;
 			case (CC_STATE_FSTXON):			Logln (F("STATE_FSTXON			"));	break;
-			case (CC_STATE_CALIBRATE):		Logln (F("STATE_CALIBRATE			"));	break;
-			case (CC_STATE_SETTLING):		Logln (F("STATE_SETTLING			"));	break;
+			case (CC_STATE_CALIBRATE):		Logln (F("STATE_CALIBRATE		"));	break;
+			case (CC_STATE_SETTLING):		Logln (F("STATE_SETTLING		"));	break;
 			case (CC_STATE_RX_OVERFLOW):	Logln (F("STATE_RXFIFO_OVERFLOW	"));	break;
-			case (CC_STATE_TX_UNDERFLOW):	Logln (F("STATE_TXFIFO_UNDERFLOW	"));	break;
+			case (CC_STATE_TX_UNDERFLOW):	Logln (F("STATE_TXFIFO_UNDERFLOW"));	break;
 			default:						Logln (F("UNKNOWN STATE			"));
 		}
 	}
@@ -781,24 +783,24 @@ void CC1101::printMarcstate (void)
 		Logln (F("Marcstate: "));
 		switch (_currentMarcState) 
 		{
-			case 0x00: Logln (F("SLEEP SLEEP						")); break;
+			case 0x00: Logln (F("SLEEP SLEEP					")); break;
 			case 0x01: Logln (F("IDLE IDLE						")); break;
 			case 0x02: Logln (F("XOFF XOFF						")); break;
-			case 0x03: Logln (F("VCOON_MC MANCAL					")); break;
-			case 0x04: Logln (F("REGON_MC MANCAL					")); break;
+			case 0x03: Logln (F("VCOON_MC MANCAL				")); break;
+			case 0x04: Logln (F("REGON_MC MANCAL				")); break;
 			case 0x05: Logln (F("MANCAL MANCAL					")); break;
-			case 0x06: Logln (F("VCOON FS_WAKEUP					")); break;
-			case 0x07: Logln (F("REGON FS_WAKEUP					")); break;
+			case 0x06: Logln (F("VCOON FS_WAKEUP				")); break;
+			case 0x07: Logln (F("REGON FS_WAKEUP				")); break;
 			case 0x08: Logln (F("STARTCAL CALIBRATE				")); break;
-			case 0x09: Logln (F("BWBOOST SETTLING					")); break;
-			case 0x0A: Logln (F("FS_LOCK SETTLING					")); break;
-			case 0x0B: Logln (F("IFADCON SETTLING					")); break;
-			case 0x0C: Logln (F("ENDCAL CALIBRATE					")); break;
+			case 0x09: Logln (F("BWBOOST SETTLING				")); break;
+			case 0x0A: Logln (F("FS_LOCK SETTLING				")); break;
+			case 0x0B: Logln (F("IFADCON SETTLING				")); break;
+			case 0x0C: Logln (F("ENDCAL CALIBRATE				")); break;
 			case 0x0D: Logln (F("RX RX							")); break;
 			case 0x0E: Logln (F("RX_END RX						")); break;
 			case 0x0F: Logln (F("RX_RST RX						")); break;
 			case 0x10: Logln (F("TXRX_SWITCH TXRX_SETTLING		")); break;
-			case 0x11: Logln (F("RXFIFO_OVERFLOW RXFIFO_OVERFLOW	")); break;
+			case 0x11: Logln (F("RXFIFO_OVERFLOW RXFIFO_OVERFLOW")); break;
 			case 0x12: Logln (F("FSTXON FSTXON					")); break;
 			case 0x13: Logln (F("TX TX							")); break;
 			case 0x14: Logln (F("TX_END TX						")); break;

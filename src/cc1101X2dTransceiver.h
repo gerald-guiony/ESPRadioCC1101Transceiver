@@ -28,10 +28,6 @@ public:
 
 protected:
 
-	// Receive disabled
-	virtual void startReceivePacket	(uint8_t delayMs)	override {}
-	virtual void stopReceivePacket	()					override {}
-
 	virtual void initRegisters	(void) override
 	{
 		/***************************************************************

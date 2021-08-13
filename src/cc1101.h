@@ -502,7 +502,7 @@ protected:
 
 public:
 
-	CC1101 								(uint8_t irqPin);
+	CC1101 								(uint8_t irqPin = -1);
 	virtual ~CC1101						();
 
     void hardReset						(void);
