@@ -19,7 +19,7 @@ bool CCPACKET :: _printTo (Print & p) const {
 	bool isValid = (0 < length) && (length <= CCPACKET_DATA_LEN);
 
 	if (isValid) {
-		
+
 		p << F(PRINT_CCPACKET_DATALEN) << length << F(PRINT_CCPACKET_SEPARATOR);
 		p << F(PRINT_CCPACKET_ADDRESS) << n2hexstr (address) << F(PRINT_CCPACKET_SEPARATOR);
 
@@ -29,7 +29,7 @@ bool CCPACKET :: _printTo (Print & p) const {
 		}
 		p << F(PRINT_CCPACKET_DATA_END) << F(PRINT_CCPACKET_SEPARATOR);
 
-		p << (crc_ok ? F(PRINT_CCPACKET_CRC_OK) : F(PRINT_CCPACKET_CRC_NOK)) << F(PRINT_CCPACKET_SEPARATOR); 
+		p << (crc_ok ? F(PRINT_CCPACKET_CRC_OK) : F(PRINT_CCPACKET_CRC_NOK)) << F(PRINT_CCPACKET_SEPARATOR);
 
 		p << F(PRINT_CCPACKET_SIGNAL_STRENGTH) << n2hexstr (rssi) << F(PRINT_CCPACKET_SEPARATOR);
 		p << F(PRINT_CCPACKET_SIGNAL_QUALITY) << n2hexstr (lqi);
@@ -42,7 +42,7 @@ bool CCPACKET :: _printTo (Print & p) const {
 //
 //========================================================================================================================
 size_t CCPACKET :: _printSize () const {
-	
+
 	class PrintCounter : public Print {
 	public:
 		size_t _counter = 0;
@@ -50,7 +50,7 @@ size_t CCPACKET :: _printSize () const {
 			_counter++;
 		}
 	};
-	
+
 	PrintCounter printCounter;
 	if (_printTo (printCounter)) {
 		return printCounter._counter;
@@ -74,19 +74,19 @@ size_t CCPACKET :: printTo (Print & p) const {
 //
 //========================================================================================================================
 bool CCPACKET :: parse (Stream & stream, Print & out) {
-	
+
 	if (!StreamParser::checkNextStrInStream (stream, PRINT_CCPACKET_DATALEN))
 	{
 		out << F("Malformatted data length begin! ABORTED!!") << LN;
 		return false;
-	}	
-	length = (uint8_t) stream.parseInt();	
+	}
+	length = (uint8_t) stream.parseInt();
 
 	if (!StreamParser::checkNextStrInStream (stream, PRINT_CCPACKET_SEPARATOR))
 	{
 		out << F("Malformatted marks spaces! ABORTED!!") << LN;
 		goto ERROR;
-	}	
+	}
 
 	if (!StreamParser::checkNextStrInStream (stream, PRINT_CCPACKET_ADDRESS))
 	{
@@ -120,7 +120,7 @@ bool CCPACKET :: parse (Stream & stream, Print & out) {
 		{
 			out << F("Malformatted separator! ABORTED!!") << LN;
 			goto ERROR;
-		}	
+		}
 
 		data[i] = StreamParser::hexstr2Int (stream);
 	}
@@ -129,8 +129,8 @@ bool CCPACKET :: parse (Stream & stream, Print & out) {
 	{
 		out << F("Malformatted data end! ABORTED!!") << LN;
 		return false;
-	}	
-	
+	}
+
 	if (!StreamParser::checkNextStrInStream (stream, PRINT_CCPACKET_SEPARATOR))
 	{
 		out << F("Malformatted separator! ABORTED!!") << LN;
@@ -142,7 +142,7 @@ bool CCPACKET :: parse (Stream & stream, Print & out) {
 		out << F("Malformatted CRC! ABORTED!!") << LN;
 		return false;
 	}
-	
+
 	if (!StreamParser::checkNextStrInStream (stream, PRINT_CCPACKET_SEPARATOR))
 	{
 		out << F("Malformatted separator! ABORTED!!") << LN;
@@ -154,7 +154,7 @@ bool CCPACKET :: parse (Stream & stream, Print & out) {
 		out << F("Malformatted signal strength! ABORTED!!") << LN;
 		goto ERROR;
 	}
- 
+
 	rssi = StreamParser::hexstr2Int (stream);
 
 	if (!StreamParser::checkNextStrInStream (stream, PRINT_CCPACKET_SEPARATOR))
@@ -216,12 +216,12 @@ void CCPACKET :: reset ()
 CCPACKET CCPACKET :: getTestPacket (uint8_t address, uint8_t length)
 {
 	CCPACKET packet;
-	
+
 	packet.address	= address;		// ou 0x00 Broadcast address
 	packet.length	= length;
-	
+
 	for (int i=0; i<packet.length; i++)
 		packet.data[i] = i;
-	
+
 	return packet;
 }

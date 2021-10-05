@@ -28,7 +28,7 @@ CC1101::CC1101 (uint8_t irqPin /*= -1*/) :
 		pinMode (_irqPin, INPUT);			// Config GDO2 as input
 	}
 
-	hardReset ();							// Reset CC1101	
+	hardReset ();							// Reset CC1101
 }
 
 //========================================================================================================================
@@ -57,7 +57,7 @@ void CC1101::wait_Miso () const
 void CC1101::hardReset (void)
 {
 	Logln (F("CC1101 Hardreset"));
-	
+
 	deselect			();					// Deselect CC1101
 	delayMicroseconds	(5);
 	select				();					// Select CC1101
@@ -85,7 +85,7 @@ void CC1101::softReset (void)
 
 //========================================================================================================================
 // wakeUp
-// 
+//
 // Wake up CC1101 from Power Down state
 //========================================================================================================================
 void CC1101::wakeUp (void)
@@ -97,10 +97,10 @@ void CC1101::wakeUp (void)
 
 //========================================================================================================================
 // setPowerDownState
-// 
+//
 // Put CC1101 into power-down state
 //========================================================================================================================
-void CC1101::setPowerDownState (void) 
+void CC1101::setPowerDownState (void)
 {
 	cmdStrobe			(CC1101_SIDLE);		// Comming from RX state, we need to enter the IDLE state first
 	cmdStrobe			(CC1101_SPWD);		// Enter Power-down state
@@ -109,12 +109,12 @@ void CC1101::setPowerDownState (void)
 
 //========================================================================================================================
 // cmdStrobe => writeCommand
-// 
+//
 // Send command strobe to the CC1101 IC via SPI
-// 
+//
 // 'cmd'	Command strobe
-//========================================================================================================================	
-void CC1101::cmdStrobe (uint8_t cmd) 
+//========================================================================================================================
+void CC1101::cmdStrobe (uint8_t cmd)
 {
 	uint8_t sta;
 	Logln(F("Sending strobe: "));
@@ -151,14 +151,14 @@ void CC1101::cmdStrobe (uint8_t cmd)
 // 'regAddr'	Register address
 // 'value'		Value to be writen
 //========================================================================================================================
-void CC1101::writeReg (uint8_t regAddr, uint8_t value) 
+void CC1101::writeReg (uint8_t regAddr, uint8_t value)
 {
 	uint8_t sta;
 
 	// Print extra info when we're writing to CC register
 	if (regAddr < NUM_CONFIG_REGISTERS)
 	{
-		Logln(	F("Writing to CC1101 reg ") << FPSTR(CC1101_CONFIG_REGISTER_NAME[regAddr]) << 
+		Logln(	F("Writing to CC1101 reg ") << FPSTR(CC1101_CONFIG_REGISTER_NAME[regAddr]) <<
 										F(" [") << String (regAddr, HEX) << F("] value (HEX):") << String (value, HEX));
 	}
 
@@ -174,11 +174,11 @@ void CC1101::writeReg (uint8_t regAddr, uint8_t value)
 
 //========================================================================================================================
 // readReg
-// 
+//
 // Read CC1101 register via SPI
-// 
+//
 // 'regAddr'	Register address
-// 
+//
 // Return:
 // 	Data uint8_t returned by the CC1101 IC
 //========================================================================================================================
@@ -203,36 +203,36 @@ uint8_t CC1101::readReg (uint8_t addr) const
 //	as per: http://e2e.ti.com/support/wireless-connectivity/other-wireless/f/667/t/334528?CC1101-Random-RX-FIFO-Overflow
 //
 // Known SPI/26MHz synchronization bug (see CC1101 errata)
-// This issue affects the following registers: SPI status byte (fields STATE and FIFO_BYTES_AVAILABLE), 
-// FREQEST or RSSI while the receiver is active, MARCSTATE at any time other than an IDLE radio state, 
+// This issue affects the following registers: SPI status byte (fields STATE and FIFO_BYTES_AVAILABLE),
+// FREQEST or RSSI while the receiver is active, MARCSTATE at any time other than an IDLE radio state,
 // RXBYTES when receiving or TXBYTES when transmitting, and WORTIME1/WORTIME0 at any time.*/
 //========================================================================================================================
 uint8_t CC1101::readRegWithSyncProblem (uint8_t address, uint8_t registerType) const
 {
-	uint8_t value1, value2;	
-	
+	uint8_t value1, value2;
+
 	value1 = readReg (address | registerType);
-	
+
 	// If two consecutive reads gives us the same result then we know we are ok
-	do 
+	do
 	{
 		value2 = value1;
 		asyncDelayMillis (10);
 		value1 = readReg (address | registerType);
-	} 
+	}
 	while (value1 != value2);
-	
+
 	return value1;
 }
 
 //========================================================================================================================
 // readReg
-// 
+//
 // Read CC1101 register via SPI
-// 
+//
 // 'regAddr'	Register address
 // 'regType'	Type of register: CC1101_CONFIG_REGISTER or CC1101_STATUS_REGISTER
-// 
+//
 // Return:
 // 	Data uint8_t returned by the CC1101 IC
 //========================================================================================================================
@@ -245,9 +245,9 @@ uint8_t CC1101::readReg (uint8_t address, uint8_t registerType) const
 		case CC1101_RXBYTES:
 		case CC1101_TXBYTES:
 		case CC1101_WORTIME1:
-		case CC1101_WORTIME0:	
-			return readRegWithSyncProblem (address, registerType);	
-			
+		case CC1101_WORTIME0:
+			return readRegWithSyncProblem (address, registerType);
+
 		default:
 			return readReg (address | registerType);
 	}
@@ -255,9 +255,9 @@ uint8_t CC1101::readReg (uint8_t address, uint8_t registerType) const
 
 //========================================================================================================================
 // writeBurstReg
-// 
+//
 // Write multiple registers into the CC1101 IC via SPI
-// 
+//
 // 'regAddr'	Register address
 // 'buffer'	Data to be writen
 // 'len'	Data length
@@ -275,7 +275,7 @@ void CC1101::writeBurstReg (uint8_t regAddr, const uint8_t* buffer, const uint8_
 	for (i=0; i<len; i++)
 		SPI.transfer(buffer[i]);			// Send value
 
-	deselect		();						// Deselect CC1101	
+	deselect		();						// Deselect CC1101
 }
 */
 {
@@ -295,14 +295,14 @@ void CC1101::writeBurstReg (uint8_t regAddr, const uint8_t* buffer, const uint8_
 
 //========================================================================================================================
 // readBurstReg
-// 
+//
 // Read burst data from CC1101 via SPI
-// 
+//
 // 'buffer'	Buffer where to copy the result to
 // 'regAddr'	Register address
 // 'len'	Data length
 //========================================================================================================================
-void CC1101::readBurstReg (uint8_t * buffer, uint8_t regAddr, uint8_t len) 
+void CC1101::readBurstReg (uint8_t * buffer, uint8_t regAddr, uint8_t len)
 /*
 {
 	uint8_t addr, i;
@@ -323,12 +323,12 @@ void CC1101::readBurstReg (uint8_t * buffer, uint8_t regAddr, uint8_t len)
 
 //========================================================================================================================
 // setSyncWord (overriding method)
-// 
+//
 // Set synchronization word
-// 
+//
 // 'syncH'	Synchronization word - pointer to 2-uint8_t array
 //========================================================================================================================
-void CC1101::setSyncWord (uint8_t sync1, uint8_t sync0) 
+void CC1101::setSyncWord (uint8_t sync1, uint8_t sync0)
 {
 	writeReg (CC1101_SYNC1, sync1);
 	writeReg (CC1101_SYNC0, sync0);
@@ -336,33 +336,33 @@ void CC1101::setSyncWord (uint8_t sync1, uint8_t sync0)
 
 //========================================================================================================================
 // setDevAddress
-// 
+//
 // Set device address
-// 
+//
 // @param addr	Device address
 //========================================================================================================================
-void CC1101::setDevAddress (uint8_t addr) 
+void CC1101::setDevAddress (uint8_t addr)
 {
 	writeReg (CC1101_ADDR, addr);
 }
 
 //========================================================================================================================
 // setChannel
-// 
+//
 // Set frequency channel
-// 
+//
 // 'chnl'	Frequency channel
 //========================================================================================================================
-void CC1101::setChannel (uint8_t chnl) 
+void CC1101::setChannel (uint8_t chnl)
 {
 	writeReg (CC1101_CHANNR,	chnl);
 }
 
 //========================================================================================================================
 // setDataRate
-// 
+//
 // Data Rate - details extracted from SmartRF Studio
-// 
+//
 // 'chnl'	Frequency channel
 //========================================================================================================================
 void CC1101::setDataRate (DATA_RATE dataRate)
@@ -375,7 +375,7 @@ void CC1101::setDataRate (DATA_RATE dataRate)
 			Logln (F("250kbps data rate"));
 
 			writeReg (CC1101_FSCTRL1,	0x0C); // Frequency Synthesizer Control (optimised for sensitivity)
-			writeReg (CC1101_MDMCFG4,	0x2D); // Modem Configuration      
+			writeReg (CC1101_MDMCFG4,	0x2D); // Modem Configuration
 			writeReg (CC1101_MDMCFG3,	0x3B); // Modem Configuration
 			writeReg (CC1101_DEVIATN,	0x62); // Modem Deviation Setting
 			writeReg (CC1101_FOCCFG,	0x1D); // Frequency Offset Compensation Configuration
@@ -391,19 +391,19 @@ void CC1101::setDataRate (DATA_RATE dataRate)
 			Logln (F("38kbps data rate"));
 
 			writeReg (CC1101_FSCTRL1,	0x06); // Frequency Synthesizer Control
-			writeReg (CC1101_MDMCFG4,	0xCA); // Modem Configuration      
+			writeReg (CC1101_MDMCFG4,	0xCA); // Modem Configuration
 			writeReg (CC1101_MDMCFG3,	0x83); // Modem Configuration
 			writeReg (CC1101_DEVIATN,	0x35); // Modem Deviation Setting
 			writeReg (CC1101_FOCCFG,	0x16); // Frequency Offset Compensation Configuration
 			writeReg (CC1101_AGCCTRL2,	0x43); // AGC Control
-			break; 
+			break;
 
 		case KBPS_4:
 
 			Logln (F("4kbps data rate"));
 
 			writeReg (CC1101_FSCTRL1,	0x06); // Frequency Synthesizer Control
-			writeReg (CC1101_MDMCFG4,	0xC7); // Modem Configuration      
+			writeReg (CC1101_MDMCFG4,	0xC7); // Modem Configuration
 			writeReg (CC1101_MDMCFG3,	0x83); // Modem Configuration
 			writeReg (CC1101_DEVIATN,	0x40); // Modem Deviation Setting
 			writeReg (CC1101_FOCCFG,	0x16); // Frequency Offset Compensation Configuration
@@ -414,9 +414,9 @@ void CC1101::setDataRate (DATA_RATE dataRate)
 
 //========================================================================================================================
 // setCarrierFreq
-// 
+//
 // Set carrier frequency
-// 
+//
 // 'freq'	New carrier frequency
 //========================================================================================================================
 void CC1101::setCarrierFreq (CFREQ freq)
@@ -426,7 +426,7 @@ void CC1101::setCarrierFreq (CFREQ freq)
 		case CFREQ_433:
 
 			Logln (F("Carrier frequency 433 MHz"));
-			
+
 			writeReg (CC1101_FREQ2,	0x10);
 			writeReg (CC1101_FREQ1,	0xA7);
 			writeReg (CC1101_FREQ0,	0x62);
@@ -444,7 +444,7 @@ void CC1101::setCarrierFreq (CFREQ freq)
 		case CFREQ_918:
 
 			Logln (F("Carrier frequency 918 MHz"));
-			
+
 			writeReg (CC1101_FREQ2,	0x23);
 			writeReg (CC1101_FREQ1,	0x4E);
 			writeReg (CC1101_FREQ0,	0xC4);
@@ -479,7 +479,7 @@ bool CC1101::isAddressCheck () const
 }
 
 //===================================================================================================================
-// Indicates the packet length when fixed packet length mode is enabled. If variable packet length mode is used, 
+// Indicates the packet length when fixed packet length mode is enabled. If variable packet length mode is used,
 // this value indicates the maximum packet length allowed. This value must be different from 0.
 //===================================================================================================================
 uint8_t CC1101::getFixedPacketLength () const
@@ -488,7 +488,7 @@ uint8_t CC1101::getFixedPacketLength () const
 }
 
 //===================================================================================================================
-// When enabled, two status bytes will be appended to the payload of the packet. The status bytes contain RSSI and 
+// When enabled, two status bytes will be appended to the payload of the packet. The status bytes contain RSSI and
 // LQI values, as well as CRC OK.
 //===================================================================================================================
 bool CC1101::isRssiLqiCrc () const
@@ -515,14 +515,14 @@ bool CC1101::sendCCPacket (CCPACKET & packet)
 
 	if (packet.length == 0) return false;
 
-	// ===================================================================================================	
-	// Check to see if stuff is already in the TX FIFO. If so. Flush it. 
+	// ===================================================================================================
+	// Check to see if stuff is already in the TX FIFO. If so. Flush it.
 
 	// Vide TX FIFO au cas où...
 	setTxState		();
 
-	// Any left over bytes in the TX FIFO ?	
-	uint8_t txStatus = readStatusReg (CC1101_TXBYTES); 
+	// Any left over bytes in the TX FIFO ?
+	uint8_t txStatus = readStatusReg (CC1101_TXBYTES);
 
 	if (txStatus & CC1101_TX_FIFO_UNDERFLOW) { 		// Clear TX fifo if needed
 
@@ -532,16 +532,16 @@ bool CC1101::sendCCPacket (CCPACKET & packet)
 
 	setIdleState	();								// Enter IDLE state
 
-	// =================================================================================================== 
+	// ===================================================================================================
 	// Send the radio packet.
 
 	/*
 	15.4 Packet Handling in Transmit Mode
 	The payload that is to be transmitted must be written into the TX FIFO. The first byte written must be
-	the length byte when variable packet length is enabled. The length byte has a value equal to the payload 
-	of the packet (including the optional address byte). If address recognition is enabled on the receiver, 
+	the length byte when variable packet length is enabled. The length byte has a value equal to the payload
+	of the packet (including the optional address byte). If address recognition is enabled on the receiver,
 	the second byte written to the TX FIFO must be the address byte.
-	If fixed packet length is enabled, the first byte written to the TX FIFO should be the address (assuming 
+	If fixed packet length is enabled, the first byte written to the TX FIFO should be the address (assuming
 	the receiver uses address recognition).
 	*/
 	// (Preamble bits) (Sync word) (Optional length byte (+1 if address)) (Optional address byte) [Payload] (optional RSSI) (optional LQI+CRCbit)
@@ -584,7 +584,7 @@ bool CC1101::sendCCPacket (CCPACKET & packet)
 		index += len;
 	}
 
-	// Wait until transmission is finished (TXOFF_MODE is expected to be set to 0/IDLE or TXFIFO_UNDERFLOW)	
+	// Wait until transmission is finished (TXOFF_MODE is expected to be set to 0/IDLE or TXFIFO_UNDERFLOW)
 	do
 	{
 		marcState = (readStatusReg (CC1101_MARCSTATE) & CC1101_BITS_MARCSTATE);
@@ -618,8 +618,8 @@ uint8_t CC1101::receiveCCPacket (CCPACKET & packet)	// if data available
 	if (rxBytes & CC1101_RX_FIFO_OVERFLOW) Logln (F("* RX FIFO OVERFLOW !!"));
 
 	uint8_t rxBytesPending = rxBytes & CC1101_BYTES_IN_FIFO;
-	Logln (F("* RX FIFO bytes pending read: ") << rxBytesPending); 
-	
+	Logln (F("* RX FIFO bytes pending read: ") << rxBytesPending);
+
 	if (rxBytesPending)
 	{
 		// Check for rx fifo overflow
@@ -650,7 +650,7 @@ uint8_t CC1101::receiveCCPacket (CCPACKET & packet)	// if data available
 		if (packet.length > rxBytesPending) {
 			Logln (F("/!\\ Receiving packet length doesn't match: Packet length (") << packet.length << F(") > RX Fifo bytes (") << rxBytesPending << F(")"));
 			packet.length = rxBytesPending;
-		}	
+		}
 
 		// Read data packet
 		readBurstReg (packet.data, CC1101_RXFIFO, packet.length);
@@ -690,7 +690,7 @@ void CC1101::printState (uint8_t status)
 {
 	/*
 	10.1 Chip Status Byte
-	When the header byte, data byte, or command strobe is sent on the SPI interface, the chip status byte is sent by 
+	When the header byte, data byte, or command strobe is sent on the SPI interface, the chip status byte is sent by
 	the CC1101 on the SO pin. The status byte contains key status signals, useful for the MCU. The first bit, s7, is the
 	CHIP_RDYn signal and this signal must go low before the first positive edge of SCLK. The CHIP_RDYn signal indicates
 	that the crystal is running.
@@ -699,7 +699,7 @@ void CC1101::printState (uint8_t status)
 	// Data is MSB, so get rid of the fifo bytes, extract the three we care about.
 	// https://stackoverflow.com/questions/141525/what-are-bitwise-shift-bit-shift-operators-and-how-do-they-work
 	_currentState = static_cast<CC_STATE> (status & 0b01110000);
-	
+
 	// TODO: Do something when we hit OVERFLOW / UNDERFLOW STATE.
 
 	// Refer to page 31 of cc1101.pdf
@@ -711,7 +711,7 @@ void CC1101::printState (uint8_t status)
 		Logln (F("SPI Result: FAIL: CHIP_RDY is LOW! The CC1101 isn't happy. Has a over/underflow occured?"));
 	}
 
-	if (_lastState != _currentState) 
+	if (_lastState != _currentState)
 	{
 		switch (_currentState)
 		{
@@ -750,7 +750,7 @@ void CC1101::printCurrentSettings (void)
 	printMarcstate ();
 
 	printFIFOState ();
-	printGD0xStatus ();	
+	printGD0xStatus ();
 }
 
 //===================================================================================================================
@@ -778,10 +778,10 @@ void CC1101::printMarcstate (void)
 {
 	_currentMarcState = static_cast<CC_MARCSTATE> (readStatusReg (CC1101_MARCSTATE) & CC1101_BITS_MARCSTATE);
 
-	if (_lastMarcState != _currentMarcState) 
+	if (_lastMarcState != _currentMarcState)
 	{
 		Logln (F("Marcstate: "));
-		switch (_currentMarcState) 
+		switch (_currentMarcState)
 		{
 			case 0x00: Logln (F("SLEEP SLEEP					")); break;
 			case 0x01: Logln (F("IDLE IDLE						")); break;

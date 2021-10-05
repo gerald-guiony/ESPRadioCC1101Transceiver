@@ -23,7 +23,7 @@
 
 /**
  * Packet printable
- */ 
+ */
 #define PRINT_CCPACKET_SEPARATOR		" "
 #define PRINT_CCPACKET_ADDRESS			"A-"
 #define PRINT_CCPACKET_DATALEN			"L-"
@@ -38,7 +38,7 @@
 
 /**
  * Class: CCPACKET
- * 
+ *
  * Description:
  * CC1101 data packet class
  */
@@ -73,7 +73,7 @@ private:
 	}
 
 	void reset				();
-	
+
 	static CCPACKET getTestPacket (uint8_t address, uint8_t length);
 };
 

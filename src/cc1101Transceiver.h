@@ -10,7 +10,7 @@
 
 /**
  * Class: CC1101Transceiver
- * 
+ *
  * Description:
  * CC1101Transceiver interface
  */
@@ -20,16 +20,16 @@ protected:
 
 	uint8_t _address;
 	uint8_t	_len;
-	
+
 protected:
 
 	virtual void initRegisters			() = 0;
 
 	virtual void startSendPacket		();
-	
+
 	uint8_t receivePacket				(CCPACKET & packet);
 	virtual void continueReceivePacket	();
-	
+
 	bool checkNewPacketReceived			();
 
 public:
@@ -37,7 +37,7 @@ public:
 	CC1101Transceiver 					(uint8_t irqPin, uint8_t address, uint8_t length);
 
 	virtual uint8_t getAddress			() const { return _address; }
-	virtual uint8_t getLength			() const { return _len - (isAddressCheck () ? 1 : 0); }	
+	virtual uint8_t getLength			() const { return _len - (isAddressCheck () ? 1 : 0); }
 
 	virtual bool sendPacket 			(CCPACKET & packet) override;
 	virtual bool sendPackets			(CCPACKET * packets, uint8_t nbPackets);

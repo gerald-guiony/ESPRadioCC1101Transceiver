@@ -27,7 +27,7 @@ void CC1101Transceiver :: startSendPacket ()
 	Logln(F("--------- CC1101 Starting to send packet --------- "));
 
 //	setDevAddress		(0x56);								// Filter address (réception des messages qui commencent uniquement par cette adresse) Address used for packet filtration. Optional broadcast addresses are 0 (0x00) and 255 (0xFF).
-	
+
 	printCurrentSettings();
 }
 
@@ -38,7 +38,7 @@ bool CC1101Transceiver :: sendPacket (CCPACKET & packet)
 {
 	stopReceivePacket ();
 	startSendPacket ();
-	
+
 	bool result = sendCCPacket (packet);
 
 	// Return back in Rx state after 100ms
@@ -54,13 +54,13 @@ bool CC1101Transceiver :: sendPackets (CCPACKET * packets, uint8_t nbPackets)
 {
 	stopReceivePacket ();
 	startSendPacket ();
-	
+
 	bool result = true;
 	for (int i=0; i<nbPackets; i++)
 	{
 		result &= sendCCPacket (packets[i]);
 	}
-	
+
 	// Return back in Rx state after 100ms
 	startReceivePacket ();
 
@@ -110,7 +110,7 @@ void CC1101Transceiver :: startReceivePacket (uint8_t delayMs /*= 100 */)
 void CC1101Transceiver :: continueReceivePacket ()
 {
 	uint8_t marcState;
-	
+
 	setIdleState 		();
 	setRxState			(); 								// Switch to RX state
 
@@ -126,8 +126,8 @@ void CC1101Transceiver :: continueReceivePacket ()
 		setRxState			(); 							// Switch to RX state
 	}
 
-	
-	Logln (F("Attaching Interrupt"));	
+
+	Logln (F("Attaching Interrupt"));
 	receiveTicker.setCallbackFunction (std::bind (&CC1101Transceiver::checkNewPacketReceived, this));
 	attachInterrupt (_irqPin, _ISR_cc1101_irq_pin, RISING);
 }
@@ -152,7 +152,7 @@ uint8_t CC1101Transceiver :: receivePacket	(CCPACKET & packet)
 
 	continueReceivePacket ();
 
-	return nbBytesReceived;	
+	return nbBytesReceived;
 }
 
 //========================================================================================================================

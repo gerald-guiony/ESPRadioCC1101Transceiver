@@ -12,8 +12,8 @@
 
 /**
  * Class: CC1101X2dTransceiver
- * 
- * Description: cc1101 X2D packet transceiver 
+ *
+ * Description: cc1101 X2D packet transceiver
  * CC1101X2dTransceiver interface
  */
 class CC1101X2dTransceiver : public CC1101Transceiver
@@ -24,7 +24,7 @@ public:
 		: CC1101Transceiver (irqPin, address, 0)
 	{
 		initRegisters ();
-	}	
+	}
 
 protected:
 
@@ -37,8 +37,8 @@ protected:
 		 *  compatible #define statements.
 		 *
 		 *  RF device: CC1101
-		 * 
-		 *  Base Frequency		: 433.445 Mhz 
+		 *
+		 *  Base Frequency		: 433.445 Mhz
 		 *  Xtal Freq			: 26.0000 Mhz
 		 *  Modulation			: ASK/OOK
 		 *  Whitening 			: Off
@@ -93,11 +93,11 @@ protected:
 		writeReg			(CC1101_FSCAL2,		SMARTRF_SETTING_FSCAL2);
 		writeReg			(CC1101_FSCAL1,		SMARTRF_SETTING_FSCAL1);
 		writeReg			(CC1101_FSCAL0,		SMARTRF_SETTING_FSCAL0);
-		
+
 		setDataRate			(KBPS_4);
 		// Data rate is 1200 baud/s !!
 		writeReg 			(CC1101_FSCTRL1,	SMARTRF_SETTING_FSCTRL1);
-		writeReg 			(CC1101_MDMCFG4,	SMARTRF_SETTING_MDMCFG4); 	// Modem Configuration      
+		writeReg 			(CC1101_MDMCFG4,	SMARTRF_SETTING_MDMCFG4); 	// Modem Configuration
 		writeReg 			(CC1101_MDMCFG3,	SMARTRF_SETTING_MDMCFG3); 	// Modem Configuration
 		writeReg 			(CC1101_DEVIATN,	SMARTRF_SETTING_DEVIATN); 	// Modem Deviation Setting
 		writeReg 			(CC1101_FOCCFG,		SMARTRF_SETTING_FOCCFG); 	// Frequency Offset Compensation Configuration
@@ -109,11 +109,11 @@ protected:
 
 		writeReg			(CC1101_PKTLEN,		0xFF);			// The PKTLEN register is used to set the maximum packet length allowed in RX (useless here..)
 
-		writeReg			(CC1101_MCSM0,		0x18);			// 00011000	Main Radio Control State Machine configuration : Auto calibrate When going from IDLE to RX or TX (or FSTXON), PO timeout Approx. 146µs - 171µs 
+		writeReg			(CC1101_MCSM0,		0x18);			// 00011000	Main Radio Control State Machine configuration : Auto calibrate When going from IDLE to RX or TX (or FSTXON), PO timeout Approx. 146µs - 171µs
 		writeReg			(CC1101_MCSM1,		0x00);			// Always Clear channel indication, Next state after finishing packet reception: IDLE, Next state after finishing packet transmission: IDLE
 
 		writeReg			(CC1101_FIFOTHR,	0x47);			// used to program threshold points in the FIFOs. Bytes in TX FIFO 33, Bytes in RX FIFO 32. A signal will assert when the number of bytes in the FIFO is equal to or higher than the programmed threshold
-	
+
 		writeReg			(CC1101_MDMCFG2,	0x38);			// Modem Configuration: ASK/OOK modulation, Manchester encoding/decoding enabled, no sync word
 		writeReg			(CC1101_MDMCFG1,	0x00);			// Minimum of 2 preamble bytes to be transmitted
 

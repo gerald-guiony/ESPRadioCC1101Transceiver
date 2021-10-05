@@ -24,8 +24,8 @@
 
 #include "ccPacket.h"
 
-// The PATABLE is an 8-byte table that defines the PA control settings to use for each of the eight PA power values 
-// (selected by the 3-bit value FREND0.PA_POWER). The table is written and read from the lowest setting (0) to the 
+// The PATABLE is an 8-byte table that defines the PA control settings to use for each of the eight PA power values
+// (selected by the 3-bit value FREND0.PA_POWER). The table is written and read from the lowest setting (0) to the
 // highest (7), one byte at a time.
 const uint8_t PA_TABLE10	[8] {0x00,0xC0,0x00,0x00,0x00,0x00,0x00,0x00,};
 const uint8_t PA_TABLE7		[8] {0x00,0xC8,0x00,0x00,0x00,0x00,0x00,0x00,};
@@ -67,7 +67,7 @@ const uint8_t PA_TABLE_30	[8] {0x00,0x12,0x00,0x00,0x00,0x00,0x00,0x00,};
  */
 /*
  * From cc1101.pdf:
- * 
+ *
  * All transactions on the SPI interface start with
  * a header byte containing a R/W¯ bit, a burst
  * access bit (B), and a 6-bit address (A5 – A0).
@@ -209,7 +209,7 @@ const uint8_t PA_TABLE_30	[8] {0x00,0x12,0x00,0x00,0x00,0x00,0x00,0x00,};
 #define CC1101_TXBYTES           0x3A        // Underflow and Number of Bytes
 #define CC1101_RXBYTES           0x3B        // Overflow and Number of Bytes
 #define CC1101_RCCTRL1_STATUS    0x3C        // Last RC Oscillator Calibration Result
-#define CC1101_RCCTRL0_STATUS    0x3D        // Last RC Oscillator Calibration Result 
+#define CC1101_RCCTRL0_STATUS    0x3D        // Last RC Oscillator Calibration Result
 
 
 /* Bit fields in the chip status byte */
@@ -271,7 +271,7 @@ enum CFREQ
 	CFREQ_918
 };
 
-/** 
+/**
  *  Data Rate
  */
 enum DATA_RATE
@@ -292,14 +292,14 @@ enum CC_STATE
 	CC_STATE_CALIBRATE    						= 0x40,
 	CC_STATE_SETTLING     						= 0x50,
 	CC_STATE_RX_OVERFLOW  						= 0x60,
-	CC_STATE_TX_UNDERFLOW 						= 0x70	
+	CC_STATE_TX_UNDERFLOW 						= 0x70
 };
 
 
 /**
  * CC1101 configuration register names labels for Serial printing
  */
-static const char CC1101_CONFIG_REGISTER_NAME[NUM_CONFIG_REGISTERS][16] PROGMEM = 
+static const char CC1101_CONFIG_REGISTER_NAME[NUM_CONFIG_REGISTERS][16] PROGMEM =
 	{ "** IOCFG2","IOCFG1","IOCFG0","** FIFOTHR","SYNC1","SYNC0","** PKTLEN","** PKTCTRL1","** PKTCTRL0","** ADDR","CHANNR","FSCTRL1","FSCTRL0","FREQ2","FREQ1","FREQ0","MDMCFG4",
 	"MDMCFG3","** MDMCFG2","MDMCFG1","MDMCFG0","DEVIATN","MCSM2","** MCSM1","MCSM0","FOCCFG","BSCFG","AGCCTRL2","AGCCTRL1","AGCCTRL0","WOREVT1","WOREVT0","WORCTRL",
 	"FREND1","FREND0","FSCAL3","FSCAL2","FSCAL1","FSCAL0","RCCTRL1","RCCTRL0","FSTEST","PTEST","AGCTEST","TEST2","TEST1","TEST0" };
@@ -309,31 +309,31 @@ static const char CC1101_CONFIG_REGISTER_NAME[NUM_CONFIG_REGISTERS][16] PROGMEM 
  *
  * Configuration:
  *
- * Deviation = 20.629883 
- * Base frequency = 867.999939 
- * Carrier frequency = 867.999939 
- * Channel number = 0 
- * Carrier frequency = 867.999939 
- * Modulated = true 
- * Modulation format = GFSK 
+ * Deviation = 20.629883
+ * Base frequency = 867.999939
+ * Carrier frequency = 867.999939
+ * Channel number = 0
+ * Carrier frequency = 867.999939
+ * Modulated = true
+ * Modulation format = GFSK
  * Manchester enable = false
  * Data whitening = off
- * Sync word qualifier mode = 30/32 sync word bits detected 
- * Preamble count = 4 
- * Channel spacing = 199.951172 
- * Carrier frequency = 867.999939 
+ * Sync word qualifier mode = 30/32 sync word bits detected
+ * Preamble count = 4
+ * Channel spacing = 199.951172
+ * Carrier frequency = 867.999939
  * Data rate = 38.3835 Kbps
- * RX filter BW = 101.562500 
- * Data format = Normal mode 
- * Length config = Variable packet length mode. Packet length configured by the first byte after sync word 
- * CRC enable = true 
- * Packet length = 255 
- * Device address = 1 
+ * RX filter BW = 101.562500
+ * Data format = Normal mode
+ * Length config = Variable packet length mode. Packet length configured by the first byte after sync word
+ * CRC enable = true
+ * Packet length = 255
+ * Device address = 1
  * Address config = Enable address check
  * Append status = Append two status bytes to the payload of the packet. The status bytes contain RSSI and
  * LQI values, as well as CRC OK
- * CRC autoflush = false 
- * PA ramping = false 
+ * CRC autoflush = false
+ * PA ramping = false
  * TX power = 12
  * GDO0 mode = Asserts when sync word has been sent / received, and de-asserts at the end of the packet.
  * In RX, the pin will also de-assert when a packet is discarded due to address or maximum length filtering
@@ -446,7 +446,7 @@ static const char CC1101_CONFIG_REGISTER_NAME[NUM_CONFIG_REGISTERS][16] PROGMEM 
 
 /**
  * Class: CC1101
- * 
+ *
  * Description:
  * CC1101 interface
  */
@@ -491,14 +491,14 @@ protected:
 	virtual bool sendCCPacket 			(CCPACKET & packet);
  	virtual uint8_t receiveCCPacket		(CCPACKET & packet);
 
-	void printState						(uint8_t status); 
+	void printState						(uint8_t status);
 
 	void printCurrentSettings			(void);
 	void printRegisterConfiguration		(void);
 	void printFIFOState					(void);
 	void printMarcstate					(void);
 	void printLQI_RSSI					(void);
-	void printGD0xStatus				(void);	
+	void printGD0xStatus				(void);
 
 public:
 
@@ -518,7 +518,7 @@ public:
 	void setChannel						(uint8_t chnl);
 
 	virtual bool sendPacket 			(CCPACKET & packet) = 0;
- 	
+
 	virtual void startReceivePacket		(uint8_t delayMs) 	= 0;
 	virtual void stopReceivePacket		(void) 				= 0;
 

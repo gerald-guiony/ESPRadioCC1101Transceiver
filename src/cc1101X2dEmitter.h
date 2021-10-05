@@ -11,8 +11,8 @@
 
 /**
  * Class: CC1101X2dEmitter
- * 
- * Description: cc1101 X2D packet emitter 
+ *
+ * Description: cc1101 X2D packet emitter
  * CC1101X2dEmitter interface
  */
 class CC1101X2dEmitter : public CC1101X2dTransceiver

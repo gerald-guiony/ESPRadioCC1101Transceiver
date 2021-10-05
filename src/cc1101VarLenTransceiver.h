@@ -12,8 +12,8 @@
 
 /**
  * Class: CC1101VarLenTransceiver
- * 
- * Description: cc1101 variable packet length transceiver 
+ *
+ * Description: cc1101 variable packet length transceiver
  * CC1101VarLenTransceiver interface
  */
 class CC1101VarLenTransceiver : public CC1101Transceiver
@@ -26,7 +26,7 @@ public:
 		initRegisters 		();
 		startReceivePacket	();
 	}
-	
+
 	virtual uint8_t getLength () const override { return 0; }
 
 protected:
@@ -41,11 +41,11 @@ protected:
 
 		writeReg			(CC1101_PKTLEN,		0xFF);			// RX Packet length not used
 
-		writeReg			(CC1101_MCSM0,		0x18);			// 00011000	Main Radio Control State Machine configuration : Auto calibrate When going from IDLE to RX or TX (or FSTXON), PO timeout Approx. 146µs - 171µs 
+		writeReg			(CC1101_MCSM0,		0x18);			// 00011000	Main Radio Control State Machine configuration : Auto calibrate When going from IDLE to RX or TX (or FSTXON), PO timeout Approx. 146µs - 171µs
 		writeReg			(CC1101_MCSM1,		0x00);			// Always Clear channel indication, Next state after finishing packet reception: IDLE, Next state after finishing packet transmission: IDLE
 
 		writeReg			(CC1101_FIFOTHR,	0x07);			// used to program threshold points in the FIFOs. Bytes in TX FIFO 33, Bytes in RX FIFO 32. A signal will assert when the number of bytes in the FIFO is equal to or higher than the programmed threshold
-	
+
 		writeReg			(CC1101_MDMCFG2,	0x93);			// Modem Configuration: Enable digital DC blocking filter before demodulator, GFSK + 30/32 sync word bits detected
 		writeReg			(CC1101_MDMCFG1,	0x22);			// 00100010 minimum of 4 preamble bytes to be transmitted + 2 bit exponent of channel spacing
 
@@ -63,6 +63,6 @@ protected:
 		const byte paTable [8] = {0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60, 0x60};	// Low power
 //		const byte paTable [8] = {0xC0, 0xC0, 0xC0, 0xC0, 0xC0, 0xC0, 0xC0, 0xC0};	// Long distance
 		writeBurstReg	(CC1101_PATABLE, (byte*)paTable, 8);
-		
+
 	}
 };

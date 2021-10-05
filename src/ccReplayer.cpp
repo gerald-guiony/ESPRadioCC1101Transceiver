@@ -25,7 +25,7 @@ bool ccReplayer :: recordSignal (CC1101Transceiver * transceiver, Print & out, C
 
 	blinkStatus (radio.length / 10);
 
-	// Reset packet 
+	// Reset packet
 	transceiver->getLastPacketReceived ().reset ();
 
 	return true;
@@ -37,7 +37,7 @@ bool ccReplayer :: recordSignal (CC1101Transceiver * transceiver, Print & out, C
 bool ccReplayer :: emmitSignal (CC1101Transceiver * transceiver, Print & out, CCPACKET & radio) {
 
 	bool result = false;
-	
+
 	// **************************************************
 	// TEST PACKET (radio signal was not recorded before)
 	// **************************************************
@@ -55,11 +55,11 @@ bool ccReplayer :: emmitSignal (CC1101Transceiver * transceiver, Print & out, CC
 	}
 	// **************************************************
 
-	
+
 	if (radio.length > 0) {
-		
+
 		result = transceiver->sendPacket (radio);
-		
+
 		if (result) {
 			// Visual indicator that signal sent
 			blinkStatus (radio.length / 10);

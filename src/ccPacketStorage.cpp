@@ -85,13 +85,13 @@ bool ccPacketStorage :: write (uint8_t fileId, CCPACKET & ccPacket)
 	}
 	f.close ();
 
-	if (isWrote) 
+	if (isWrote)
 		Logln(ccPacket.length << F(" bytes wrote"));
 	else
 		Logln(F("ERROR : Can't write in the file : ") << filename);
-	
+
 	FileStorage::spiffsInfos ();
-	
+
 	return isWrote;
 }
 
@@ -103,7 +103,7 @@ bool ccPacketStorage :: remove (uint8_t fileId)
 	String filename = F(RF_HEADER_NAMEFILE);
 	filename += fileId;
 	filename += F(RF_EXT_NAMEFILE);
-	
+
 	return SPIFFS.remove (filename);
 }
 
@@ -113,14 +113,14 @@ bool ccPacketStorage :: remove (uint8_t fileId)
 String ccPacketStorage :: getList ()
 {
 	FileStorage::spiffsListFiles ();
-	
+
 	String result = "";
 	Dir dir = SPIFFS.openDir("/");
 	while (dir.next()) {
 		String filename = dir.fileName();
 		if (filename.indexOf (F(RF_HEADER_NAMEFILE)) == 0) {
 			int lasti = filename.indexOf (F(RF_EXT_NAMEFILE));
-			if (lasti > 0) { 
+			if (lasti > 0) {
 				if (result.length()>0) {
 					result += MSG_SEPARATOR_PARAM + filename.substring (strlen(RF_HEADER_NAMEFILE), lasti);
 				}
