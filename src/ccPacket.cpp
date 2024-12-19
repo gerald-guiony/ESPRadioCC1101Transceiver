@@ -48,6 +48,7 @@ size_t CCPACKET :: _printSize () const {
 		size_t _counter = 0;
 		virtual size_t write (uint8_t) override {
 			_counter++;
+			return _counter;
 		}
 	};
 

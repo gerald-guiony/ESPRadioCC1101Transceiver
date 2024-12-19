@@ -71,7 +71,7 @@ bool CC1101Transceiver :: sendPackets (CCPACKET * packets, uint8_t nbPackets)
 // Interrupt Service Routines (ISR) handler has to be marked with ICACHE_RAM_ATTR
 //========================================================================================================================
 #ifdef ESP8266
-void ICACHE_RAM_ATTR _ISR_cc1101_irq_pin ()
+void IRAM_ATTR _ISR_cc1101_irq_pin ()
 #else
 void _ISR_cc1101_irq_pin ()
 #endif

@@ -70,6 +70,7 @@ private:
 			length 	= N;
 			std::copy (otherData, otherData + length, data);
 		}
+		return *this;
 	}
 
 	void reset				();
