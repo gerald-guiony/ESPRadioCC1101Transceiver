@@ -4,12 +4,15 @@
 // Author Gerald Guiony
 //************************************************************************************************************************
 
+#include <Ticker.h>
+
 #include <Common.h>
 
 #include "cc1101Transceiver.h"
 
 
-Tycker receiveTicker;
+Ticker receiveTicker;
+std::function<void()> callBakFunction;
 
 //========================================================================================================================
 //
@@ -70,14 +73,14 @@ bool CC1101Transceiver :: sendPackets (CCPACKET * packets, uint8_t nbPackets)
 //========================================================================================================================
 // Interrupt Service Routines (ISR) handler has to be marked with ICACHE_RAM_ATTR
 //========================================================================================================================
-#ifdef ESP8266
+#if defined (ESP8266) || defined (ESP32)
 void IRAM_ATTR _ISR_cc1101_irq_pin ()
 #else
 void _ISR_cc1101_irq_pin ()
 #endif
 {
 	Logln(F(":O"));
-	receiveTicker.startOnce_ms (50);
+	receiveTicker.once_ms (50, callBakFunction);
 }
 
 //========================================================================================================================
@@ -128,7 +131,7 @@ void CC1101Transceiver :: continueReceivePacket ()
 
 
 	Logln (F("Attaching Interrupt"));
-	receiveTicker.setCallbackFunction (std::bind (&CC1101Transceiver::checkNewPacketReceived, this));
+	callBakFunction = std::bind (&CC1101Transceiver::checkNewPacketReceived, this);
 	attachInterrupt (_irqPin, _ISR_cc1101_irq_pin, RISING);
 }
 

@@ -21,7 +21,7 @@ bool ccPacketStorage :: read (uint8_t fileId, CCPACKET & ccPacket)
 	filename += fileId;
 	filename += F(RF_EXT_NAMEFILE);
 
-	File f = SPIFFS.open(filename, "r");
+	File f = LittleFS.open(filename, "r");
 	if (!f) {
 		Logln(F("Warning : Can't open the file : ") << filename);
 		return false;
@@ -67,7 +67,7 @@ bool ccPacketStorage :: write (uint8_t fileId, CCPACKET & ccPacket)
 	filename += fileId;
 	filename += F(RF_EXT_NAMEFILE);
 
-	File f = SPIFFS.open(filename, "w");
+	File f = LittleFS.open(filename, "w");
 	if (!f) {
 		Logln(F("ERROR : Can't open the file : ") << filename);
 		return false;
@@ -104,7 +104,7 @@ bool ccPacketStorage :: remove (uint8_t fileId)
 	filename += fileId;
 	filename += F(RF_EXT_NAMEFILE);
 
-	return SPIFFS.remove (filename);
+	return LittleFS.remove (filename);
 }
 
 //========================================================================================================================
@@ -115,7 +115,7 @@ String ccPacketStorage :: getList ()
 	FileStorage::spiffsListFiles ();
 
 	String result = "";
-	Dir dir = SPIFFS.openDir("/");
+	Dir dir = LittleFS.openDir("/");
 	while (dir.next()) {
 		String filename = dir.fileName();
 		if (filename.indexOf (F(RF_HEADER_NAMEFILE)) == 0) {
