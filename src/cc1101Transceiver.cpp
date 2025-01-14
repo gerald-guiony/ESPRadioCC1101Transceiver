@@ -125,8 +125,8 @@ void CC1101Transceiver :: continueReceivePacket ()
 			flushRxFifo 	(); 							// Flush RX buffer. Only issue SFRX in IDLE or RXFIFO_OVERFLOW states.
 			printFIFOState 	();
 		}
-		asyncDelayMillis 	(10);
-		setRxState			(); 							// Switch to RX state
+		EspBoard::asyncDelayMillis(10);
+		setRxState					();						// Switch to RX state
 	}
 
 

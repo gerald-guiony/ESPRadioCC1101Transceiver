@@ -46,7 +46,7 @@ CC1101::~CC1101 ()
 //========================================================================================================================
 void CC1101::wait_Miso () const
 {
-	while (digitalRead(MISO) == HIGH) {asyncDelayMillis(10);}
+	while (digitalRead(MISO) == HIGH) {EspBoard::asyncDelayMillis(10);}
 }
 
 //========================================================================================================================
@@ -162,14 +162,14 @@ void CC1101::writeReg (uint8_t regAddr, uint8_t value)
 										F(" [") << String (regAddr, HEX) << F("] value (HEX):") << String (value, HEX));
 	}
 
-	select				();					// Select CC1101
-	wait_Miso			();					// Wait until MISO goes low
-	SPI.transfer		(regAddr);			// Send register address
-	asyncDelayMillis	(1);				// HACK
-	sta = SPI.transfer	(value);			// Send value
-	deselect			();					// Deselect CC1101
+	select						();					// Select CC1101
+	wait_Miso					();					// Wait until MISO goes low
+	SPI.transfer				(regAddr);			// Send register address
+	EspBoard::asyncDelayMillis	(1);				// HACK
+	sta = SPI.transfer			(value);			// Send value
+	deselect					();					// Deselect CC1101
 
-	printState			(sta);
+	printState					(sta);
 }
 
 //========================================================================================================================
@@ -186,12 +186,12 @@ uint8_t CC1101::readReg (uint8_t addr) const
 {
 	uint8_t val;
 
-	select				();					// Select CC1101
-	wait_Miso			();					// Wait until MISO goes low
-	SPI.transfer		(addr);				// Send register address
-	asyncDelayMillis	(1);				// HACK
-	val = SPI.transfer	(0x00);				// Read result
-	deselect			();					// Deselect CC1101
+	select						();					// Select CC1101
+	wait_Miso					();					// Wait until MISO goes low
+	SPI.transfer				(addr);				// Send register address
+	EspBoard::asyncDelayMillis	(1);				// HACK
+	val = SPI.transfer			(0x00);				// Read result
+	deselect					();					// Deselect CC1101
 
 	return val;
 }
@@ -217,7 +217,7 @@ uint8_t CC1101::readRegWithSyncProblem (uint8_t address, uint8_t registerType) c
 	do
 	{
 		value2 = value1;
-		asyncDelayMillis (10);
+		EspBoard::asyncDelayMillis (10);
 		value1 = readReg (address | registerType);
 	}
 	while (value1 != value2);
@@ -767,7 +767,7 @@ void CC1101::printRegisterConfiguration (void)
 		reg_value = readReg(i, CC1101_CONFIG_REGISTER);
 		Logln (F("Reg ") << FPSTR(CC1101_CONFIG_REGISTER_NAME[i]) << F(" ( ") << String (i, HEX) << F(" ) = ") << String (reg_value, HEX));
 
-		asyncDelayMillis (10);
+		EspBoard::asyncDelayMillis (10);
 	}
 }
 

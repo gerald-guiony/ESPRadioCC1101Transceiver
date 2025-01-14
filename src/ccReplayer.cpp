@@ -23,7 +23,7 @@ bool ccReplayer :: recordSignal (CC1101Transceiver * transceiver, Print & out, C
 	radio = transceiver->getLastPacketReceived ();
 	out << F("SUCCESS! Memorized captured radio signal found (") << radio.length << " bytes)" << LN;
 
-	blinkStatus (radio.length / 10);
+	EspBoard::blinks (radio.length / 10);
 
 	// Reset packet
 	transceiver->getLastPacketReceived ().reset ();
@@ -62,7 +62,7 @@ bool ccReplayer :: emmitSignal (CC1101Transceiver * transceiver, Print & out, CC
 
 		if (result) {
 			// Visual indicator that signal sent
-			blinkStatus (radio.length / 10);
+			EspBoard::blinks (radio.length / 10);
 
 			out << F("Radio signal sent (") << radio.length << " bytes)" << LN;
 		}
