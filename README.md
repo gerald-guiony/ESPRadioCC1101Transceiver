@@ -6,7 +6,7 @@ This library is a compilation of various CC1101 Arduino libraries especially thi
 
 ## Getting started
 
-To get started with ESPRadioCC1101Transceiver, you will need::
+To get started with ESPRadioCC1101Transceiver, you will need:
 
 * An ESP8266 board
 * A CC1101 based device
@@ -22,7 +22,7 @@ To get started with ESPRadioCC1101Transceiver, you will need::
 
 ## Dependencies
 
-To use this library, you may need to have the latest version of the [ESPCoreExtension library](https://github.com/gerald-guiony/ESPCoreExtension)
+To use this library, you may need to have the latest version of my [ESPCoreExtension](https://github.com/gerald-guiony/ESPCoreExtension) library
 
 ## CC1101 Wiring
 
