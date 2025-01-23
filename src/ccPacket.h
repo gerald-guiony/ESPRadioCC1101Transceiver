@@ -47,10 +47,10 @@ class CCPACKET : public Printable
  public:
  	uint8_t length							= 0;			// Data length
 	uint8_t address							= 0;			// CC recipient device ID (receiving CC1101 will filter, unless it's 0x00 or 0xFF which is a broadcast message)
-    uint8_t data [CCPACKET_DATA_LEN]		= {0};			// Data buffer
-    bool    crc_ok							= false;		// CRC OK flag
-    uint8_t rssi							= 0;			// Received Strength Signal Indication
-    uint8_t lqi								= 0;			// Link Quality Index
+	uint8_t data [CCPACKET_DATA_LEN]		= {0};			// Data buffer
+	bool	crc_ok							= false;		// CRC OK flag
+	uint8_t rssi							= 0;			// Received Strength Signal Indication
+	uint8_t lqi								= 0;			// Link Quality Index
 
 private:
 	bool _printTo 			(Print & p) const;
@@ -58,8 +58,8 @@ private:
 
  public:
 
-    virtual size_t printTo	(Print & p) const override;
-    bool parse 				(Stream & stream, Print & out);
+	virtual size_t printTo	(Print & p) const override;
+	bool parse 				(Stream & stream, Print & out);
 
 	CCPACKET & operator=	(const CCPACKET & other);
 
