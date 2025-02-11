@@ -14,6 +14,8 @@
 #include "cc1101Transceiver.h"
 
 
+namespace cc1101 {
+
 //------------------------------------------------------------------------------
 //
 class ccReplayer
@@ -37,6 +39,5 @@ public:
 	bool loadSignal 			(uint8_t id)									{ return I(ccPacketStorage).read 	(id, _currentRadioSignal);	}
 };
 
-
-
+}
 

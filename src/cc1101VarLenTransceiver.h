@@ -10,6 +10,8 @@
 #include "cc1101Transceiver.h"
 
 
+namespace cc1101 {
+
 /**
  * Class: CC1101VarLenTransceiver
  *
@@ -66,3 +68,5 @@ protected:
 
 	}
 };
+
+}

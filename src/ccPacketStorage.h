@@ -10,6 +10,8 @@
 
 #include "ccPacket.h"
 
+namespace cc1101 {
+
 #define RF_HEADER_NAMEFILE					"/Rf"
 #define RF_EXT_NAMEFILE						".dat"
 
@@ -25,3 +27,5 @@ public:
 	bool	remove		(uint8_t fileId);
 	String	getList		();
 };
+
+}

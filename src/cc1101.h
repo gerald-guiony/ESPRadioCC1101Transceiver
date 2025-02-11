@@ -24,6 +24,8 @@
 
 #include "ccPacket.h"
 
+namespace cc1101 {
+
 // The PATABLE is an 8-byte table that defines the PA control settings to use for each of the eight PA power values
 // (selected by the 3-bit value FREND0.PA_POWER). The table is written and read from the lowest setting (0) to the
 // highest (7), one byte at a time.
@@ -524,3 +526,5 @@ public:
 
 	CCPACKET & getLastPacketReceived	(void) { return _lastPacketReceived; }
  };
+
+}

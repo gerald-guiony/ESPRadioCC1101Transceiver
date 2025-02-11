@@ -9,6 +9,8 @@
 #include "cc1101X2dTransceiver.h"
 
 
+namespace cc1101 {
+
 /**
  * Class: CC1101X2dEmitter
  *
@@ -31,3 +33,5 @@ private:
 	using  CC1101X2dTransceiver::startReceivePacket;
 	using  CC1101X2dTransceiver::stopReceivePacket;
 };
+
+}

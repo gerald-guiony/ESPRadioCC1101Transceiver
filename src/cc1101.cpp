@@ -9,6 +9,10 @@
 
 #include "cc1101.h"
 
+using namespace corex;
+
+
+namespace cc1101 {
 
 //========================================================================================================================
 // default constructor
@@ -849,3 +853,4 @@ void CC1101::printGD0xStatus (void)
 	Logln (F("GDO2: ") << gdo2 << F(" GDO0: ") << gdo0);
 }
 
+}

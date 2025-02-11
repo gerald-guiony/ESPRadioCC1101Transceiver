@@ -6,6 +6,11 @@
 
 #include "ccReplayer.h"
 
+using namespace corex;
+
+
+namespace cc1101 {
+
 
 SINGLETON_IMPL (ccReplayer)
 
@@ -80,4 +85,6 @@ bool ccReplayer :: emmitSignal (CC1101Transceiver * transceiver, Print & out, CC
 	// **************************************************
 
 	return result;
+}
+
 }

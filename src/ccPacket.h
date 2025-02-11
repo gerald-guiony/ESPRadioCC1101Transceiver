@@ -12,6 +12,9 @@
 #	include <Arduino.h>
 #endif
 
+
+namespace cc1101 {
+
 /**
  * Buffer and data lengths
  */
@@ -78,3 +81,4 @@ private:
 	static CCPACKET getTestPacket (uint8_t address, uint8_t length);
 };
 
+}

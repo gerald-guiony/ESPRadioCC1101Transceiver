@@ -6,6 +6,11 @@
 
 #include "ccPacketStorage.h"
 
+using namespace corex;
+
+
+namespace cc1101 {
+
 
 SINGLETON_IMPL (ccPacketStorage)
 
@@ -133,3 +138,4 @@ String ccPacketStorage :: getList ()
 	return result;
 }
 
+}

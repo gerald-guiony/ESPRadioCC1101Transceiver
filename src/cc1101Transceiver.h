@@ -8,6 +8,8 @@
 
 #include "cc1101.h"
 
+namespace cc1101 {
+
 /**
  * Class: CC1101Transceiver
  *
@@ -45,3 +47,5 @@ public:
 	virtual void startReceivePacket		(uint8_t delayMs = 100) override;
 	virtual void stopReceivePacket		() override;
 };
+
+}

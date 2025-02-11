@@ -10,6 +10,10 @@
 
 #include "cc1101Transceiver.h"
 
+using namespace corex;
+
+
+namespace cc1101 {
 
 Ticker receiveTicker;
 std::function<void()> callBakFunction;
@@ -163,4 +167,6 @@ uint8_t CC1101Transceiver :: receivePacket	(CCPACKET & packet)
 //========================================================================================================================
 bool CC1101Transceiver :: checkNewPacketReceived () {
 	return (receivePacket (_lastPacketReceived) > 0);
+}
+
 }

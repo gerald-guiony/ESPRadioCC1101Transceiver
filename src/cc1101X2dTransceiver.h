@@ -10,6 +10,8 @@
 #include "cc1101Transceiver.h"
 
 
+namespace cc1101 {
+
 /**
  * Class: CC1101X2dTransceiver
  *
@@ -138,3 +140,5 @@ protected:
 		writeBurstReg	(CC1101_PATABLE, (byte*)paTable, 8);
 	}
 };
+
+}
