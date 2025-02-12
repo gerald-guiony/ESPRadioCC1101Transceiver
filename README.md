@@ -27,3 +27,7 @@ To use this library, you may need to have the latest version of my [ESPCoreExten
 ## CC1101 Wiring
 
 ![CC1101 Wiring](https://github.com/gerald-guiony/ESPRadioCC1101Transceiver/blob/master/docs/CC1101%20ESP8266.png)
+
+## Example
+
+[Smart thermostat](https://github.com/gerald-guiony/ESPRadioCC1101Transceiver/blob/master/examples/ThermostatRemoteControl)

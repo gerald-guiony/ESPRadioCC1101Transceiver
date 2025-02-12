@@ -1,0 +1,124 @@
+//************************************************************************************************************************
+// X2dRadioTyboxCommands.h
+// Version 1.0 July, 2019
+// Author Gerald Guiony
+//************************************************************************************************************************
+
+#pragma once
+
+
+	/*
+		================================================================
+		Radio Tybox X2D DELTA DORE
+		================================================================
+
+		CubicSDR => 433.446 Mhz
+
+		rtl_433 : https://github.com/merbanan/rtl_433
+
+		----------------------------
+		rtl_433 -A -f 433446000
+		----------------------------
+
+		rtl_433 says :
+			Detected OOK package
+			Guessing modulation: Manchester coding
+			Use a flex decoder with -X 'n=name,m=OOK_MC_ZEROBIT,s=844,l=0,r=1656'
+
+		---------------------------------------------------------------------------
+		rtl_433 -A -f 433446000 -g 10 -X 'n=name,m=OOK_MC_ZEROBIT,s=844,l=0,r=1656'
+		---------------------------------------------------------------------------
+
+
+		*****************************************************************************************************
+		Température courante > température programmée (mode confort ou mode eco selectionné)
+		*****************************************************************************************************
+
+		------------------------------------------------------------------------------------------------------
+		Package 1 :
+		-----------
+		[00] {121} 55 55 7f 36 39 aa a9 55 55 55 b7 3f 33 00 2a 80
+
+		Guessing modulation: Manchester coding
+		Attempting demodulation... short_width: 844, long_width: 0, reset_limit: 1656, sync_width: 0
+		Use a flex decoder with -X 'n=name,m=OOK_MC_ZEROBIT,s=844,l=0,r=1656'
+		pulse_demod_manchester_zerobit(): Analyzer Device
+
+		------------------------------------------------------------------------------------------------------
+		Package 2 :
+		-----------
+		code {121} 55 55 7f 36 39 aa a9 55 2a aa 48 c0 ec ff d5 0
+
+		Attempting demodulation... short_width: 848, long_width: 1672, reset_limit: 1656, sync_width: 232
+		Use a flex decoder with -X 'n=name,m=OOK_PWM,s=848,l=1672,r=1656,g=0,t=0,y=232'
+
+		[00] {80} 00 7f 5d d0 20 80 ad fb 6f f8							=> Pas Manchester ?
+		[01] { 0}
+
+		------------------------------------------------------------------------------------------------------
+		Package 3 :
+		-----------
+
+		[00] {121} 55 55 7f 36 39 aa a9 55 6a aa b7 7e 2c 80 2a 80
+
+		Guessing modulation: Manchester coding
+		Attempting demodulation... short_width: 844, long_width: 0, reset_limit: 1656, sync_width: 0
+		Use a flex decoder with -X 'n=name,m=OOK_MC_ZEROBIT,s=844,l=0,r=1656'
+		pulse_demod_manchester_zerobit(): Analyzer Device
+
+
+		******************************************************************************************************
+		Température courante < température programmée (mode confort ou mode eco selectionné)
+		******************************************************************************************************
+
+		------------------------------------------------------------------------------------------------------
+		Package 1 :
+		-----------
+		codes {121} 55 55 7f 36 39 aa a9 55 55 15 b7 3f 04 ff d5 0
+
+		Attempting demodulation... short_width: 844, long_width: 1672, reset_limit: 1656, sync_width: 224
+		Use a flex decoder with -X 'n=name,m=OOK_PWM,s=844,l=1672,r=1656,g=0,t=0,y=224'   => Pas Manchester ???
+
+		[00] {81} 00 7f 5d d0 20 0c 57 7f d7 fc 00
+		[01] { 0}
+
+		------------------------------------------------------------------------------------------------------
+		Package 2 :
+		-----------
+		codes {121} 55 55 7f 36 39 aa a9 55 2a ea 48 c0 c4 ff d5 0
+
+		Attempting demodulation... short_width: 848, long_width: 1676, reset_limit: 1652, sync_width: 232
+		Use a flex decoder with -X 'n=name,m=OOK_PWM,s=848,l=1676,r=1652,g=0,t=0,y=232'		=> Pas Manchester ???
+
+		[00] {81} 00 7f 5d d0 20 86 56 fd d7 fc 00
+		[01] { 0}
+
+		------------------------------------------------------------------------------------------------------
+		Package 3 :
+		-----------
+		codes {121} 55 55 7f 36 39 aa a9 55 6a ea b7 7e 1b 7f d5 0
+
+		Attempting demodulation... short_width: 844, long_width: 1676, reset_limit: 1656, sync_width: 212
+		Use a flex decoder with -X 'n=name,m=OOK_PWM,s=844,l=1676,r=1656,g=0,t=0,y=212'		=> Pas Manchester ???
+
+		[00] {80} 00 7f 5d d0 20 46 16 ff 57 f8
+		[01] { 0}
+
+
+		*** Répétition des 3 frames 10s plus tard puis toutes les 15 min en fonction de la température ***
+
+	*/
+
+
+
+	const uint8_t HEATING_ON_CMD [][16]		= { {0x55, 0x55, 0x7f, 0x36, 0x39, 0xaa, 0xa9, 0x55, 0x55, 0x15, 0xb7, 0x3f, 0x04, 0xff, 0xd5, 0x00},
+												{0x55, 0x55, 0x7f, 0x36, 0x39, 0xaa, 0xa9, 0x55, 0x2a, 0xea, 0x48, 0xc0, 0xc4, 0xff, 0xd5, 0x00},
+												{0x55, 0x55, 0x7f, 0x36, 0x39, 0xaa, 0xa9, 0x55, 0x6a, 0xea, 0xb7, 0x7e, 0x1b, 0x7f, 0xd5, 0x00} };
+
+
+	const uint8_t HEATING_OFF_CMD [][16]	= { {0x55, 0x55, 0x7f, 0x36, 0x39, 0xaa, 0xa9, 0x55, 0x55, 0x55, 0xb7, 0x3f, 0x33, 0x00, 0x2a, 0x80},
+												{0x55, 0x55, 0x7f, 0x36, 0x39, 0xaa, 0xa9, 0x55, 0x2a, 0xaa, 0x48, 0xc0, 0xec, 0xff, 0xd5, 0x00},
+												{0x55, 0x55, 0x7f, 0x36, 0x39, 0xaa, 0xa9, 0x55, 0x6a, 0xaa, 0xb7, 0x7e, 0x2c, 0x80, 0x2a, 0x80} };
+
+
+
