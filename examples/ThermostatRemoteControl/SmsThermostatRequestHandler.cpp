@@ -9,10 +9,6 @@
 #include "Settings.h"
 #include "DeltaDoreThermostat.h"
 
-#ifdef USING_SMS_THERMOSTAT_REQUEST
-#	warning -- USING_SMS_THERMOSTAT_REQUEST defined --
-#endif
-
 
 #define LASTSMSNUMBER_NAMEFILE			"/LastSmsNumber.dat"
 

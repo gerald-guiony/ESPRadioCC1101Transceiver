@@ -32,18 +32,7 @@
 #include <EspBoardDefs.h>
 
 
-#ifdef ARDUINO_ESP8266_WIO_NODE
-
-	// GSM
-#	define GSM_TX_PIN			PORT1A
-#	define GSM_RX_PIN			PORT1B
-
-	// Radio
-#	define CC1101_IRQ_PIN 		PORT1A
-
-	// Temperature
-
-#elif defined(ARDUINO_ESP8266_NODEMCU_ESP12E)
+#ifdef ARDUINO_ESP8266_NODEMCU_ESP12E
 
 	// GSM
 #	define GSM_TX_PIN			D10					// Software serial can be implemented on any GPIO pin of ESP8266
@@ -59,10 +48,6 @@
 
 	// Push button
 #	define PUSH_BUTTON_PIN		D4
-
-#elif defined(ESP32)
-
-#else
 
 #endif
 
